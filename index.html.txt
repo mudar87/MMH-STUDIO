@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMH Studio | Architectuur & Ontwerp Amsterdam</title>
+    <meta name="description" content="MMH Studio — Architectenbureau in Amsterdam voor duurzaam ontwerp, vergunningaanvragen en bouwbegeleiding. BENG-gereed, circulair bouwen, transparante kosten.">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #0a0a0a;
+            --muted: #777777;
+            --border: #e8e8e8;
+            --accent: #E5B80B;
+            --accent-dark: #C49A00;
+            --dark: #0a0a0a;
+            --light-bg: #f9f9f9;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+
+        header {
+            padding: 20px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .logo img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            flex-shrink: 0;
+            image-rendering: -webkit-optimize-contrast;
+        }
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+        .logo-text span {
+            display: block;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+        nav { display: flex; gap: 36px; }
+        nav a {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--muted);
+            transition: color 0.2s;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        nav a:hover, nav a.active { color: var(--text); }
+        nav a.active::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: var(--text);
+        }
+
+        .hero {
+            padding: 100px 48px 60px;
+            max-width: 900px;
+        }
+        .hero h1 {
+            font-size: clamp(30px, 4.5vw, 52px);
+            font-weight: 300;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+        .hero h1 strong { font-weight: 600; }
+        .hero-sub {
+            font-size: 17px;
+            color: var(--muted);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--text);
+            color: #fff;
+            padding: 14px 28px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        .hero-badges {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+        .badge.accent {
+            background: var(--accent);
+            color: var(--text);
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--muted);
+            margin-bottom: 32px;
+            font-weight: 600;
+        }
+
+        .services {
+            padding: 80px 48px;
+            background: var(--light-bg);
+            border-top: 1px solid var(--border);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1100px;
+        }
+        .service-card {
+            background: #fff;
+            padding: 32px;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+        }
+        .service-num {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-dark);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .service-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+        }
+        .service-title-nl {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        .service-desc {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 16px;
+        }
+        .service-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            background: var(--light-bg);
+            color: var(--muted);
+        }
+
+        .process {
+            padding: 80px 48px;
+            border-top: 1px solid var(--border);
+        }
+        .process-inner { max-width: 900px; }
+        .process-intro {
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: 48px;
+            max-width: 700px;
+        }
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border: 1px solid var(--border);
+        }
+        .process-step {
+            padding: 32px;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+        .process-step:last-child { border-right: none; background: var(--dark); color: #fff; }
+        .process-step:last-child .step-num { color: var(--accent); }
+        .process-step:last-child .step-title { color: #fff; }
+        .process-step:last-child .step-desc { color: #aaa; }
+        .step-num {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .step-title-nl {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+        .step-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        .step-time {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-dark);
+            margin-top: 16px;
+            font-weight: 600;
+        }
+
+        .projects {
+            padding: 80px 48px;
+            border-top: 1px solid var(--border);
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px;
+        }
+        .project-card { cursor: pointer; }
+        .project-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: #f0f0f0;
+            overflow: hidden;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .project-image .placeholder {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            color: #bbb; font-size: 13px; letter-spacing: 1px;
+        }
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+        .project-title { font-size: 17px; font-weight: 600; }
+        .project-year { font-size: 13px; color: var(--muted); }
+        .project-credit {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .trust {
+            padding: 40px 48px;
+            background: var(--dark);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .trust-icon {
+            width: 32px; height: 32px;
+            border: 1px solid #444;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+        }
+        .trust-text {
+            font-size: 13px;
+            color: #ccc;
+        }
+        .trust-text strong {
+            color: #fff;
+            display: block;
+            font-size: 14px;
+        }
+
+        .contact {
+            padding: 80px 48px;
+            border-top: 1px solid var(--border);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            max-width: 1000px;
+        }
+        .contact-info h2 {
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .contact-info .sub {
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+        .contact-detail {
+            margin-bottom: 20px;
+        }
+        .contact-detail .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+        .contact-detail .value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .contact-detail .value-nl {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+        .contact-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .contact-links a {
+            font-size: 13px;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+        .contact-links a:hover {
+            border-color: var(--text);
+        }
+        .contact-form {
+            background: var(--light-bg);
+            padding: 40px;
+            border: 1px solid var(--border);
+        }
+        .form-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .form-row {
+            margin-bottom: 16px;
+        }
+        .form-row label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+        .form-row input,
+        .form-row textarea,
+        .form-row select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 14px;
+            background: #fff;
+        }
+        .form-row textarea { min-height: 120px; resize: vertical; }
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            color: var(--text);
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .form-submit:hover { background: var(--accent-dark); }
+        .form-note {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+
+        footer {
+            padding: 24px 48px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .process-steps { grid-template-columns: 1fr 1fr; }
+            .process-step:nth-child(2) { border-right: none; }
+            .process-step:nth-child(1), .process-step:nth-child(2) { border-bottom: 1px solid var(--border); }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 16px 24px; }
+            .logo img { width: 44px; height: 44px; }
+            .logo-text { font-size: 15px; letter-spacing: 2px; }
+            .hero, .services, .process, .projects, .contact { padding-left: 24px; padding-right: 24px; }
+            .project-grid { grid-template-columns: 1fr; gap: 32px; }
+            .process-steps { grid-template-columns: 1fr; }
+            .process-step { border-right: none; border-bottom: 1px solid var(--border); }
+            .trust { padding: 24px; flex-direction: column; align-items: flex-start; }
+            footer { padding: 24px; flex-direction: column; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="mmhstudio_logo.png" alt="MMH Studio Logo">
+            <div class="logo-text">
+                MMH Studio
+                <span>Architecture & Design</span>
+            </div>
+        </div>
+        <nav>
+            <a href="#services" class="active">Services</a>
+            <a href="#work">Work</a>
+            <a href="#process">Process</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Architectuur dat <strong>werkt</strong> — van concept tot vergunning.</h1>
+        <p class="hero-sub">Amsterdam-based architecture studio. We design sustainable, permit-ready buildings with transparent pricing and no surprises.</p>
+        <a href="tel:+31630705621" class="hero-cta">Bel direct: +31 6 3070 5621 →</a>
+        <div class="hero-badges">
+            <span class="badge accent">✓ Vergunninggereed</span>
+            <span class="badge">✓ BENG-normen</span>
+            <span class="badge">✓ Circulair ontwerp</span>
+            <span class="badge">✓ Transparante kosten</span>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-label">What we do / Wat wij doen</div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-num">01</div>
+                <div class="service-title">Concept & Schematic Design</div>
+                <div class="service-title-nl">Concept & Schematisch Ontwerp</div>
+                <div class="service-desc">We translate your vision into a buildable concept. Sketch studies, massing models, and spatial strategies that solve your specific site challenges.</div>
+                <div class="service-tags">
+                    <span class="service-tag">Programma van Eisen</span>
+                    <span class="service-tag">Schetsontwerp</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-num">02</div>
+                <div class="service-title">Permit Drawings & Applications</div>
+                <div class="service-title-nl">Vergunning & Bouwvergunning</div>
+                <div class="service-desc">We handle the entire vergunning trajectory. Omgevingsvergunning drawings, BENG calculations, and direct communication with the gemeente so you don't have to worry about rejections.</div>
+                <div class="service-tags">
+                    <span class="service-tag">Omgevingsvergunning</span>
+                    <span class="service-tag">BENG-berekening</span>
+                    <span class="service-tag">Gemeente</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-num">03</div>
+                <div class="service-title">Technical Design & Construction</div>
+                <div class="service-title-nl">Technisch Ontwerp & Bouwbegeleiding</div>
+                <div class="service-desc">Complete technical drawings, material specifications, and on-site supervision. We ensure what gets built matches what was designed — within budget.</div>
+                <div class="service-tags">
+                    <span class="service-tag">Bouwbegeleiding</span>
+                    <span class="service-tag">BIM</span>
+                    <span class="service-tag">Kostenbewaking</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process" id="process">
+        <div class="process-inner">
+            <div class="section-label">How we work / Hoe wij werken</div>
+            <p class="process-intro">Clear timeline. Transparent costs. No hidden fees. Every project follows the same 4-step structure so you always know where you stand.</p>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-num">01</div>
+                    <div class="step-title">Intake</div>
+                    <div class="step-title-nl">Kennismaking</div>
+                    <div class="step-desc">Free 30-minute consultation. We discuss your program, budget, and timeline. No obligation.</div>
+                    <div class="step-time">Gratis / Free</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">02</div>
+                    <div class="step-title">Concept</div>
+                    <div class="step-title-nl">Schetsontwerp</div>
+                    <div class="step-desc">2–3 design options with rough cost estimates. You pick a direction before we commit to permits.</div>
+                    <div class="step-time">2–3 weken</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">03</div>
+                    <div class="step-title">Permit</div>
+                    <div class="step-title-nl">Vergunning</div>
+                    <div class="step-desc">Complete vergunning package including BENG. We submit and follow up with the gemeente.</div>
+                    <div class="step-time">4–8 weken</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">04</div>
+                    <div class="step-title">Build</div>
+                    <div class="step-title-nl">Realisatie</div>
+                    <div class="step-desc">Technical drawings, contractor selection support, and site supervision until handover.</div>
+                    <div class="step-time">Projectafhankelijk</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="work">
+        <div class="section-label">Selected work / Geselecteerd werk</div>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="placeholder">[Add Image 1]</div>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Project Name</div>
+                    <div class="project-year">2024</div>
+                </div>
+                <div class="project-credit">At [Previous Firm] — Role: [Your Role]</div>
+                <div class="project-tags">
+                    <span class="tag">Woningbouw</span>
+                    <span class="tag">BENG</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="placeholder">[Add Image 2]</div>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Project Name</div>
+                    <div class="project-year">2023</div>
+                </div>
+                <div class="project-credit">At [Previous Firm] — Role: [Your Role]</div>
+                <div class="project-tags">
+                    <span class="tag">Kantoor</span>
+                    <span class="tag">Transformatie</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="placeholder">[Add Image 3]</div>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Project Name</div>
+                    <div class="project-year">2022</div>
+                </div>
+                <div class="project-credit">At [Previous Firm] — Role: [Your Role]</div>
+                <div class="project-tags">
+                    <span class="tag">Interieur</span>
+                    <span class="tag">Renovatie</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="placeholder">[Add Image 4]</div>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Project Name</div>
+                    <div class="project-year">2021</div>
+                </div>
+                <div class="project-credit">At [Previous Firm] — Role: [Your Role]</div>
+                <div class="project-tags">
+                    <span class="tag">Stedenbouw</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust">
+        <div class="trust-item">
+            <div class="trust-icon">✓</div>
+            <div class="trust-text">
+                <strong>Vergunning zekerheid</strong>
+                Wij regelen de hele vergunning
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">€</div>
+            <div class="trust-text">
+                <strong>Transparante prijzen</strong>
+                Vaste prijs per fase
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">⚡</div>
+            <div class="trust-text">
+                <strong>Snel bereikbaar</strong>
+                +31 6 3070 5621
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">♻</div>
+            <div class="trust-text">
+                <strong>Duurzaam & circulair</strong>
+                BENG-gereed ontwerp
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="section-label">Contact</div>
+                <h2>Start your project.</h2>
+                <p class="sub">Gratis kennismaking. Binnen 24 uur reactie.</p>
+                <div class="contact-detail">
+                    <div class="label">Email</div>
+                    <div class="value">info@mmhstudio.nl</div>
+                </div>
+                <div class="contact-detail">
+                    <div class="label">Telefoon / Phone</div>
+                    <div class="value">+31 6 3070 5621</div>
+                </div>
+                <div class="contact-detail">
+                    <div class="label">Locatie / Location</div>
+                    <div class="value">Amsterdam, Nederland</div>
+                    <div class="value-nl">KvK: [Uw KvK nummer]</div>
+                </div>
+                <div class="contact-detail">
+                    <div class="label">Bereikbaar / Available</div>
+                    <div class="value">Ma–Vr 09:00–17:00</div>
+                </div>
+                <div class="contact-links">
+                    <a href="https://instagram.com/we.are.mmhs" target="_blank">Instagram →</a>
+                    <a href="https://www.mmhstudio.nl" target="_blank">Website →</a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <div class="form-title">Plan een gratis kennismaking</div>
+                <form action="https://formspree.io/f/xnqevwdr" method="POST">
+                    <div class="form-row">
+                        <label>Naam / Name *</label>
+                        <input type="text" name="name" required placeholder="Uw naam">
+                    </div>
+                    <div class="form-row">
+                        <label>Email *</label>
+                        <input type="email" name="email" required placeholder="uw@email.nl">
+                    </div>
+                    <div class="form-row">
+                        <label>Telefoon / Phone</label>
+                        <input type="tel" name="phone" placeholder="+31 6...">
+                    </div>
+                    <div class="form-row">
+                        <label>Project type</label>
+                        <select name="project_type">
+                            <option>Nieuwbouw woning</option>
+                            <option>Verbouw / Renovatie</option>
+                            <option>Kantoor / Commercieel</option>
+                            <option>Vergunning alleen</option>
+                            <option>Anders / Other</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>Bericht / Message</label>
+                        <textarea name="message" placeholder="Beschrijf uw project kort... (Describe your project briefly)"></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Verstuur aanvraag →</button>
+                    <p class="form-note">We reageren binnen 24 uur. Alle informatie is vertrouwelijk. / We respond within 24 hours. All information is confidential.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div>© 2026 MMH Studio — KvK: [Nummer]</div>
+        <div>All projects credited to respective firms / Alle projecten zijn toegeschreven aan de respectieve bedrijven</div>
+    </footer>
+
+</body>
+</html>
